@@ -1,5 +1,9 @@
 # Jujutsu Kaisen — Sorcerer Registry & Battle Game
 
+> **About this repo:** I built this game with [Claude](https://claude.ai) to show
+> a friend what it's capable of. It's a demo, not a maintained project — the
+> whole thing was put together in one sitting, and it will be taken down soon.
+
 A fan-made React app with three modes:
 
 - **Gauntlet** — single-player, five stages against the AI, ending with Sukuna.
