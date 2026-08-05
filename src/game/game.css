@@ -210,12 +210,14 @@
   margin-top: 18px;
 }
 
+/* Opponent's half hugs the right edge, yours hugs the left, so the two never
+   share a column. */
 .field-enemy {
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .field-player {
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 /* Tint each side so ownership is readable at a glance. */
@@ -266,8 +268,8 @@
 
 .nameplate {
   position: relative;
-  flex: 1;
-  max-width: 320px;
+  flex: 0 1 320px;
+  min-width: 0;
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid var(--border);
@@ -725,7 +727,6 @@
 .plate-label {
   position: absolute;
   top: -9px;
-  left: 12px;
   padding: 2px 9px;
   border-radius: 5px;
   color: #0a0810;
@@ -740,11 +741,13 @@
 
 .label-me {
   background: #90be6d;
+  right: 12px;
 }
 
 .label-foe {
   background: #e63946;
   color: #fff;
+  left: 12px;
 }
 
 .sprite-img {

@@ -122,17 +122,17 @@ export default function BattleView({
       <div className="battle-stage">
         <p className="stage-title">{title}</p>
 
-        {/* Both rows keep the same plate-then-sprite order, so each row reads as
-            one fighter. A mirrored layout put the opponent's plate directly above
-            your own sprite, which made the two look swapped. */}
+        {/* Each fighter's plate and sprite stay together on their own half of the
+            field — yours on the left, the opponent's on the right — so nothing in
+            one column ever belongs to the other side. */}
         <div className="field field-enemy">
           <Nameplate fighter={foe} label={labels.foe ?? 'OPPONENT'} owner="foe" />
           <Sprite fighter={foe} side={foeSide} fx={fx} />
         </div>
 
         <div className="field field-player">
-          <Nameplate fighter={me} label={labels.me ?? 'YOU'} owner="me" />
           <Sprite fighter={me} side={meSide} fx={fx} />
+          <Nameplate fighter={me} label={labels.me ?? 'YOU'} owner="me" />
         </div>
 
         <div className="enemy-dots">
