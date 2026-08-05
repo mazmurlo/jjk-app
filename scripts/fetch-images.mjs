@@ -19,6 +19,10 @@ const TITLES = {
   todo: 'Aoi Todo',
   jogo: 'Jogo',
   hanami: 'Hanami',
+  // Generic curses — any curse art reads fine for these mooks.
+  grade3: 'Eso',
+  grade3b: 'Kechizu',
+  finger: 'Finger Bearer',
 }
 
 await mkdir(OUT, { recursive: true })

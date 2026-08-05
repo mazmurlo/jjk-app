@@ -216,7 +216,17 @@
 
 .field-player {
   justify-content: space-between;
-  flex-direction: row;
+}
+
+/* Tint each side so ownership is readable at a glance. */
+.plate-me {
+  border-color: rgba(144, 190, 109, 0.55);
+  background: linear-gradient(90deg, rgba(144, 190, 109, 0.1), rgba(0, 0, 0, 0.35) 45%);
+}
+
+.plate-foe {
+  border-color: rgba(230, 57, 70, 0.5);
+  background: linear-gradient(90deg, rgba(230, 57, 70, 0.1), rgba(0, 0, 0, 0.35) 45%);
 }
 
 .sprite {
@@ -613,12 +623,10 @@
 
 @media (max-width: 620px) {
   .field,
+  .field-enemy,
   .field-player {
-    flex-direction: column-reverse;
-    align-items: stretch;
-  }
-  .field-enemy {
     flex-direction: column;
+    align-items: stretch;
   }
   .sprite {
     align-self: center;
@@ -718,10 +726,9 @@
   position: absolute;
   top: -9px;
   left: 12px;
-  padding: 1px 8px;
+  padding: 2px 9px;
   border-radius: 5px;
-  background: #c084fc;
-  color: #12111a;
+  color: #0a0810;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -729,6 +736,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.label-me {
+  background: #90be6d;
+}
+
+.label-foe {
+  background: #e63946;
+  color: #fff;
 }
 
 .sprite-img {

@@ -34,10 +34,10 @@ function Sprite({ fighter, side, fx }) {
   )
 }
 
-function Nameplate({ fighter, label }) {
+function Nameplate({ fighter, label, owner }) {
   const pct = fighter.hp / fighter.maxHp
   return (
-    <div className="nameplate">
+    <div className={`nameplate plate-${owner}`}>
       <div className="nameplate-top">
         <strong>{fighter.name}</strong>
         <span className="nameplate-types">
@@ -71,7 +71,7 @@ function Nameplate({ fighter, label }) {
           </div>
         </div>
       )}
-      {label && <span className="plate-label">{label}</span>}
+      <span className={`plate-label label-${owner}`}>{label}</span>
     </div>
   )
 }
@@ -122,14 +122,17 @@ export default function BattleView({
       <div className="battle-stage">
         <p className="stage-title">{title}</p>
 
+        {/* Both rows keep the same plate-then-sprite order, so each row reads as
+            one fighter. A mirrored layout put the opponent's plate directly above
+            your own sprite, which made the two look swapped. */}
         <div className="field field-enemy">
-          <Nameplate fighter={foe} label={labels.foe} />
+          <Nameplate fighter={foe} label={labels.foe ?? 'OPPONENT'} owner="foe" />
           <Sprite fighter={foe} side={foeSide} fx={fx} />
         </div>
 
         <div className="field field-player">
+          <Nameplate fighter={me} label={labels.me ?? 'YOU'} owner="me" />
           <Sprite fighter={me} side={meSide} fx={fx} />
-          <Nameplate fighter={me} label={labels.me} />
         </div>
 
         <div className="enemy-dots">

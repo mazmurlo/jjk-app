@@ -348,7 +348,7 @@ export default function Online() {
       onAction={submitAction}
       title={`${ARENA.title} · room ${role === 'host' ? code : joinCode}`}
       labels={{
-        me: role === 'host' ? names.host : names.guest,
+        me: `YOU · ${role === 'host' ? names.host : names.guest}`,
         foe: role === 'host' ? names.guest : names.host,
       }}
       footer={footer}

@@ -265,7 +265,7 @@ export const STAGES = [
   {
     title: 'Stage 1 — Abandoned School',
     blurb: 'Two low-grade curses have nested in the gymnasium.',
-    team: [grade3, { ...grade3, name: 'Grade 3 Curse B' }],
+    team: [grade3, { ...grade3, key: 'grade3b', name: 'Grade 3 Curse B' }],
     boost: 0,
   },
   {
