@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { TYPE_COLORS } from './data'
 import { effectiveness } from './engine'
+import { portraitFor } from '../assets/characters'
 
 const hpClass = (pct) => (pct > 0.5 ? 'hp-ok' : pct > 0.2 ? 'hp-warn' : 'hp-low')
 const otherSide = (side) => (side === 'player' ? 'enemy' : 'player')
@@ -16,6 +17,7 @@ export function TypeBadge({ type }) {
 function Sprite({ fighter, side, fx }) {
   const hit = fx?.target === side && ['hit', 'crit'].includes(fx.kind)
   const domain = fx?.target === side && fx.kind === 'domain'
+  const portrait = portraitFor(fighter.key)
   return (
     <div
       className={`sprite ${fighter.fainted ? 'fainted' : ''} ${hit ? 'shake' : ''} ${
@@ -23,7 +25,11 @@ function Sprite({ fighter, side, fx }) {
       }`}
       style={{ '--accent': fighter.color }}
     >
-      <span className="sprite-kana">{fighter.kana}</span>
+      {portrait ? (
+        <img className="sprite-img" src={portrait} alt={fighter.name} loading="lazy" />
+      ) : (
+        <span className="sprite-kana">{fighter.kana}</span>
+      )}
     </div>
   )
 }

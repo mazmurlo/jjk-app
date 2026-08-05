@@ -1,0 +1,14 @@
+# One-click deploy for the versus relay: https://render.com/deploy
+# After it goes live, set VITE_RELAY_URL in the frontend to wss://<service>.onrender.com
+services:
+  - type: web
+    name: jjk-relay
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"

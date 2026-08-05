@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ROSTER, TYPE_COLORS } from './data'
+import { portraitFor } from '../assets/characters'
 
 const TEAM_SIZE = 3
 
@@ -39,6 +40,9 @@ export default function TeamSelect({ unlocked, onStart }) {
               style={{ '--accent': r.color }}
               onClick={() => toggle(r.key)}
             >
+              {portraitFor(r.key) && (
+                <img className="select-portrait" src={portraitFor(r.key)} alt="" loading="lazy" />
+              )}
               <div className="select-kana">{r.kana}</div>
               <h3>{r.name}</h3>
               <div className="nameplate-types">

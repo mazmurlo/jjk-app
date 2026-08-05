@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { characters, grades, affiliations } from './characters'
+import { portraitFor } from './assets/characters'
 
 const statLabels = {
   power: 'Power',
@@ -24,7 +25,17 @@ function CharacterCard({ character, onSelect }) {
   return (
     <button className="card" style={{ '--accent': character.color }} onClick={() => onSelect(character)}>
       <div className="card-glow" />
-      <div className="card-kana">{character.kana}</div>
+      <div className="card-head">
+        {portraitFor(character.id) && (
+          <img
+            className="card-portrait"
+            src={portraitFor(character.id)}
+            alt={character.name}
+            loading="lazy"
+          />
+        )}
+        <div className="card-kana">{character.kana}</div>
+      </div>
       <h3 className="card-name">{character.name}</h3>
       <p className="card-technique">{character.technique}</p>
       <div className="card-tags">
@@ -44,11 +55,18 @@ function CharacterModal({ character, onClose }) {
         <button className="modal-close" onClick={onClose} aria-label="Close">
           ✕
         </button>
-        <div className="modal-kana">{character.kana}</div>
-        <h2>{character.name}</h2>
-        <div className="card-tags">
-          <span className="tag tag-grade">{character.grade}</span>
-          <span className="tag">{character.affiliation}</span>
+        <div className="modal-head">
+          {portraitFor(character.id) && (
+            <img className="modal-portrait" src={portraitFor(character.id)} alt={character.name} />
+          )}
+          <div>
+            <div className="modal-kana">{character.kana}</div>
+            <h2>{character.name}</h2>
+            <div className="card-tags">
+              <span className="tag tag-grade">{character.grade}</span>
+              <span className="tag">{character.affiliation}</span>
+            </div>
+          </div>
         </div>
 
         <blockquote>&ldquo;{character.quote}&rdquo;</blockquote>

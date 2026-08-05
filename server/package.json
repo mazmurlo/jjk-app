@@ -1,0 +1,17 @@
+{
+  "name": "jjk-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Two-seat WebSocket relay for Jujutsu Kaisen versus matches",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

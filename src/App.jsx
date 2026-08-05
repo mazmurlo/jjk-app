@@ -45,6 +45,16 @@ export default function App() {
 
       <footer className="footer">
         Fan-made demo. Jujutsu Kaisen is created by Gege Akutami.
+        <br />
+        Character art from the{' '}
+        <a
+          href="https://jujutsu-kaisen.fandom.com/"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Jujutsu Kaisen Wiki
+        </a>
+        , © Shueisha / MAPPA — used non-commercially.
       </footer>
     </div>
   )
