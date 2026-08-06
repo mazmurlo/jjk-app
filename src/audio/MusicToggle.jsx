@@ -8,7 +8,7 @@ export default function MusicToggle() {
   useEffect(armAutoResume, [])
 
   const label =
-    source === 'track' ? TRACK_LABEL : source === 'synth' ? FALLBACK_LABEL : 'Music off'
+    source === 'track' ? TRACK_LABEL : source === 'chip' ? FALLBACK_LABEL : 'Music off'
 
   return (
     <button

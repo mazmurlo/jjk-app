@@ -69,10 +69,16 @@ own copy and the toggle plays it:
 cp ~/wherever/judas.mp3 public/audio/judas.mp3
 ```
 
-Without that file the toggle plays a short synthesized loop (`src/audio/music.js`)
-instead, so the button always does something. Nothing starts on its own —
-browsers require a click first — and the on/off choice is remembered in
-`localStorage`.
+Without that file the toggle plays the built-in 8-bit loop instead, so the button
+always does something. `src/audio/music.js` synthesizes it live through Web Audio,
+laid out like an NES sound chip — two pulse channels for lead and arpeggio, a
+triangle bass, a noise channel for drums — over a 24-bar arrangement
+(intro/verse/chorus/verse/chorus/breakdown) that loops seamlessly at ~44s. It is
+an original composition in the style of that era of dance-pop, not a
+transcription of anyone's song.
+
+Nothing starts on its own — browsers require a click first — and the on/off
+choice is remembered in `localStorage`.
 
 ## Deploying to GitHub Pages
 
@@ -91,7 +97,7 @@ Note that GitHub Pages requires a **public** repository on free accounts.
 | Path | Purpose |
 | --- | --- |
 | `src/game/data.js` | Type chart, roster, enemies, stage definitions, versus pool |
-| `src/audio/music.js` | Background music — local track, with a synth fallback |
+| `src/audio/music.js` | Background music — local track, with an 8-bit fallback |
 | `src/game/engine.js` | Pure battle logic — damage, turn order, effects, AI |
 | `src/game/BattleView.jsx` | Battle screen, drawn from either side's perspective |
 | `src/game/Battle.jsx` | Single-player wrapper |

@@ -12,5 +12,7 @@ keeps audio files in this folder out of commits, so pushing the repo never
 publishes it. Supply it locally, or point `src/audio/music.js` at a file you have
 the rights to.
 
-If `judas.mp3` isn't here, the toggle plays a short synthesized loop written for
-this app instead, so the button always does something.
+If `judas.mp3` isn't here, the toggle plays the built-in 8-bit chiptune loop
+instead (synthesized in `src/audio/music.js`), so the button always does
+something. That loop is an original dance-pop composition written for this app,
+not a transcription of any existing song.
