@@ -141,10 +141,10 @@ export const ROSTER = [
     locked: true,
     stats: { hp: 240, atk: 138, def: 124, spd: 132 },
     moves: [
-      { name: 'Blue', type: 'Cursed', power: 85, acc: 100, pp: 15, effect: { stat: 'spd', stages: -1, target: 'foe', chance: 0.35 } },
-      { name: 'Red', type: 'Cursed', power: 110, acc: 90, pp: 10 },
+      { name: 'Blue', type: 'Domain', power: 85, acc: 100, pp: 15, effect: { stat: 'spd', stages: -1, target: 'foe', chance: 0.35 } },
+      { name: 'Red', type: 'Domain', power: 110, acc: 90, pp: 10 },
       { name: 'Infinity', type: 'Domain', category: 'status', acc: 100, pp: 10, effect: { stat: 'def', stages: 2, target: 'self', chance: 1 } },
-      { name: 'Hollow Purple', type: 'Cursed', power: 135, acc: 85, pp: 5 },
+      { name: 'Hollow Purple', type: 'Domain', power: 145, acc: 85, pp: 5 },
     ],
     domain: { name: 'Unlimited Void', type: 'Domain', power: 140, pp: 1, effect: { stat: 'atk', stages: -1, target: 'foe', chance: 1, alsoStat: 'def' }, flavor: 'Infinite information pours in. The opponent forgets how to move.' },
   },
