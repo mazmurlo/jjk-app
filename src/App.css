@@ -33,6 +33,78 @@
   color: var(--muted);
 }
 
+/* ---------- music toggle ---------- */
+
+.music-toggle {
+  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.music-toggle:hover {
+  color: var(--text-h);
+  border-color: #4cc9f0;
+}
+
+.music-toggle.music-on {
+  color: var(--text-h);
+  border-color: #c084fc;
+  box-shadow: 0 0 0 1px #c084fc, 0 14px 28px -22px #c084fc;
+}
+
+.music-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.music-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.music-bars i {
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(#c084fc, #4cc9f0);
+  animation: music-bounce 0.9s ease-in-out infinite;
+}
+
+.music-bars i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.music-bars i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes music-bounce {
+  0%,
+  100% {
+    height: 4px;
+  }
+  50% {
+    height: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-bars i {
+    animation: none;
+    height: 8px;
+  }
+}
+
 /* ---------- tabs ---------- */
 
 .tabs {

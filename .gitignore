@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Music you drop in locally — copyrighted recordings never get committed.
+public/audio/*
+!public/audio/README.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

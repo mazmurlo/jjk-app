@@ -19,6 +19,16 @@ const TITLES = {
   todo: 'Aoi Todo',
   jogo: 'Jogo',
   hanami: 'Hanami',
+  yuta: 'Yuta Okkotsu',
+  higuruma: 'Hiromi Higuruma',
+  kamo: 'Noritoshi Kamo',
+  miwa: 'Kasumi Miwa',
+  mai: 'Mai Zenin',
+  mechamaru: 'Kokichi Muta',
+  choso: 'Choso',
+  uraume: 'Uraume',
+  toji: 'Toji Fushiguro',
+  dagon: 'Dagon',
   // Generic curses — any curse art reads fine for these mooks.
   grade3: 'Eso',
   grade3b: 'Kechizu',
@@ -39,15 +49,21 @@ for (const [key, title] of Object.entries(TITLES)) {
       continue
     }
     // Ask the CDN for a consistent width rather than whatever the API picked.
-    const src = page.thumbnail.source.replace(/\/scale-to-width-down\/\d+/, '/scale-to-width-down/420')
-    const img = await fetch(src, { headers: { 'User-Agent': UA } })
+    const resized = page.thumbnail.source.replace(/\/scale-to-width-down\/\d+/, '/scale-to-width-down/420')
+    let img = await fetch(resized, { headers: { 'User-Agent': UA } })
+    let buf = img.ok ? Buffer.from(await img.arrayBuffer()) : null
+    // Some pages only have art narrower than 420px; upscaling those returns a
+    // few hundred bytes of placeholder, so fall back to the API's own URL.
+    if (!buf || buf.length < 5000) {
+      img = await fetch(page.thumbnail.source, { headers: { 'User-Agent': UA } })
+      buf = img.ok ? Buffer.from(await img.arrayBuffer()) : buf
+    }
     if (!img.ok) {
       results.push([key, `HTTP ${img.status}`, title])
       continue
     }
     const type = img.headers.get('content-type') || ''
     const ext = type.includes('png') ? 'png' : type.includes('webp') ? 'webp' : 'jpg'
-    const buf = Buffer.from(await img.arrayBuffer())
     await writeFile(`${OUT}/${key}.${ext}`, buf)
     results.push([key, `${ext} ${(buf.length / 1024).toFixed(0)}KB`, page.pageimage])
   } catch (e) {

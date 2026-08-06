@@ -148,6 +148,96 @@ export const ROSTER = [
     ],
     domain: { name: 'Unlimited Void', type: 'Domain', power: 140, pp: 1, effect: { stat: 'atk', stages: -1, target: 'foe', chance: 1, alsoStat: 'def' }, flavor: 'Infinite information pours in. The opponent forgets how to move.' },
   },
+  {
+    key: 'yuta',
+    name: 'Yuta Okkotsu',
+    kana: '乙骨 憂太',
+    types: ['Cursed', 'Domain'],
+    color: '#4361ee',
+    stats: { hp: 238, atk: 134, def: 116, spd: 120 },
+    moves: [
+      { name: 'Cursed Katana', type: 'Cursed', power: 90, acc: 100, pp: 15 },
+      { name: 'Rika: Pure Love', type: 'Cursed', power: 120, acc: 85, pp: 6 },
+      { name: 'Copy', type: 'Technique', power: 80, acc: 100, pp: 12, effect: { stat: 'atk', stages: 1, target: 'self', chance: 0.5 } },
+      { name: 'Reverse Cursed Technique', type: 'Domain', category: 'status', acc: 100, pp: 6, effect: { heal: 0.4 } },
+    ],
+    domain: { name: 'Authentic Mutual Love', type: 'Domain', power: 138, pp: 1, effect: { drain: 0.25 }, flavor: 'Rika unfolds around him, and the arena belongs to the two of them.' },
+  },
+  {
+    key: 'higuruma',
+    name: 'Hiromi Higuruma',
+    kana: '日車 寛見',
+    types: ['Domain', 'Technique'],
+    color: '#6d597a',
+    stats: { hp: 214, atk: 124, def: 104, spd: 110 },
+    moves: [
+      { name: 'Executioner\'s Sword', type: 'Domain', power: 88, acc: 100, pp: 15 },
+      { name: 'Confiscation', type: 'Technique', power: 70, acc: 100, pp: 12, effect: { stat: 'atk', stages: -1, target: 'foe', chance: 0.5 } },
+      { name: 'Cross-Examination', type: 'Technique', category: 'status', acc: 100, pp: 10, effect: { stat: 'def', stages: -2, target: 'foe', chance: 1 } },
+      { name: 'Judge\'s Gavel', type: 'Domain', power: 112, acc: 85, pp: 8, highCrit: true },
+    ],
+    domain: { name: 'Deadly Sentencing', type: 'Domain', power: 134, pp: 1, effect: { stat: 'def', stages: -1, target: 'foe', chance: 1 }, flavor: 'A courtroom seals shut. The verdict was never in doubt.' },
+  },
+  {
+    key: 'kamo',
+    name: 'Noritoshi Kamo',
+    kana: '加茂 憲紀',
+    types: ['Cursed', 'Technique'],
+    color: '#9d0208',
+    stats: { hp: 208, atk: 116, def: 104, spd: 106 },
+    moves: [
+      { name: 'Piercing Blood', type: 'Cursed', power: 95, acc: 90, pp: 12, highCrit: true },
+      { name: 'Flowing Red Scale', type: 'Cursed', category: 'status', acc: 100, pp: 10, effect: { stat: 'atk', stages: 1, target: 'self', chance: 1, alsoStat: 'spd' } },
+      { name: 'Convergence', type: 'Technique', power: 75, acc: 100, pp: 15 },
+      { name: 'Crimson Bow', type: 'Technique', power: 65, acc: 100, pp: 20, effect: { stat: 'spd', stages: -1, target: 'foe', chance: 0.35 } },
+    ],
+    domain: { name: 'Blood Meridian', type: 'Cursed', power: 118, pp: 1, effect: { recoil: 0.2 }, flavor: 'He spends his own blood like ammunition, and does not flinch.' },
+  },
+  {
+    key: 'miwa',
+    name: 'Kasumi Miwa',
+    kana: '三輪 霞',
+    types: ['Physical'],
+    color: '#00b4d8',
+    stats: { hp: 200, atk: 108, def: 100, spd: 114 },
+    moves: [
+      { name: 'Batto Sword', type: 'Physical', power: 78, acc: 100, pp: 20 },
+      { name: 'New Shadow Style: Simple Domain', type: 'Physical', category: 'status', acc: 100, pp: 10, effect: { stat: 'def', stages: 2, target: 'self', chance: 1 } },
+      { name: 'Sheath Strike', type: 'Physical', power: 55, acc: 100, pp: 20, priority: 1 },
+      { name: 'Drawn Blade', type: 'Physical', power: 105, acc: 85, pp: 8, highCrit: true },
+    ],
+    domain: { name: 'Simple Domain: Fixed Blade', type: 'Physical', power: 110, pp: 1, effect: { stat: 'def', stages: 1, target: 'self', chance: 1 }, flavor: 'A 2.21-metre circle. Nothing crosses it without being cut.' },
+  },
+  {
+    key: 'mai',
+    name: 'Mai Zenin',
+    kana: '禪院 真依',
+    types: ['Technique', 'Cursed'],
+    color: '#b5838d',
+    stats: { hp: 196, atk: 120, def: 96, spd: 108 },
+    moves: [
+      { name: 'Construction', type: 'Technique', power: 85, acc: 95, pp: 12 },
+      { name: 'Revolver Shot', type: 'Technique', power: 70, acc: 100, pp: 20, highCrit: true },
+      { name: 'Twin Sight', type: 'Cursed', category: 'status', acc: 100, pp: 10, effect: { stat: 'spd', stages: 1, target: 'self', chance: 1, alsoStat: 'atk' } },
+      { name: 'Point Blank', type: 'Cursed', power: 100, acc: 85, pp: 8, effect: { stat: 'def', stages: -1, target: 'foe', chance: 0.3 } },
+    ],
+    domain: { name: 'Constructed Barrage', type: 'Technique', power: 116, pp: 1, effect: { recoil: 0.2 }, flavor: 'Every bullet she makes costs her something. She fires anyway.' },
+  },
+  {
+    key: 'mechamaru',
+    name: 'Mechamaru',
+    kana: '機械丸',
+    types: ['Technique', 'Physical'],
+    color: '#9c6644',
+    stats: { hp: 226, atk: 118, def: 122, spd: 84 },
+    moves: [
+      { name: 'Puppet Barrage', type: 'Technique', power: 80, acc: 100, pp: 15 },
+      { name: 'Ultra Cannon', type: 'Technique', power: 118, acc: 80, pp: 6 },
+      { name: 'Armor Plating', type: 'Physical', category: 'status', acc: 100, pp: 10, effect: { stat: 'def', stages: 2, target: 'self', chance: 1 } },
+      { name: 'Sky Ladle', type: 'Physical', power: 90, acc: 90, pp: 12, effect: { stat: 'spd', stages: -1, target: 'foe', chance: 0.3 } },
+    ],
+    domain: { name: 'Mechamaru: Mode Absolute', type: 'Technique', power: 126, pp: 1, effect: { stat: 'atk', stages: 1, target: 'self', chance: 1 }, flavor: 'The puppet drops its plating. Everything left is a weapon.' },
+  },
 ]
 
 /* ---------------- enemies, in gauntlet order ---------------- */
@@ -245,6 +335,70 @@ const geto = {
   domain: { name: 'Cursed Spirit Manipulation', type: 'Domain', power: 130, pp: 1, effect: { stat: 'atk', stages: 1, target: 'self', chance: 1 }, flavor: 'A thousand swallowed curses answer at once.' },
 }
 
+const toji = {
+  key: 'toji',
+  name: 'Toji Fushiguro',
+  kana: '伏黒 甚爾',
+  types: ['Physical'],
+  color: '#4a4e69',
+  stats: { hp: 224, atk: 140, def: 108, spd: 134 },
+  moves: [
+    { name: 'Inverted Spear of Heaven', type: 'Physical', power: 95, acc: 100, pp: 15 },
+    { name: 'Playful Cloud', type: 'Physical', power: 105, acc: 90, pp: 10 },
+    { name: 'Chain of a Thousand Miles', type: 'Physical', power: 60, acc: 100, pp: 15, effect: { status: 'bound', chance: 0.45 } },
+    { name: 'Zero Presence', type: 'Physical', category: 'status', acc: 100, pp: 8, effect: { stat: 'spd', stages: 2, target: 'self', chance: 1 } },
+  ],
+  // No cursed energy at all, so no domain — just speed and inventory.
+}
+
+const choso = {
+  key: 'choso',
+  name: 'Choso',
+  kana: '脹相',
+  types: ['Cursed', 'Spirit'],
+  color: '#6a040f',
+  stats: { hp: 234, atk: 126, def: 108, spd: 112 },
+  moves: [
+    { name: 'Piercing Blood', type: 'Cursed', power: 100, acc: 90, pp: 12, highCrit: true },
+    { name: 'Slicing Blood', type: 'Cursed', power: 80, acc: 100, pp: 15 },
+    { name: 'Supernova', type: 'Spirit', power: 118, acc: 80, pp: 6, effect: { recoil: 0.15 } },
+    { name: 'Flowing Red Scale', type: 'Cursed', category: 'status', acc: 100, pp: 10, effect: { stat: 'atk', stages: 1, target: 'self', chance: 1, alsoStat: 'spd' } },
+  ],
+  domain: { name: 'Blood Meridian: Elder Brother', type: 'Cursed', power: 130, pp: 1, effect: { drain: 0.25 }, flavor: 'He fights for two dead brothers, and his blood does the arithmetic.' },
+}
+
+const uraume = {
+  key: 'uraume',
+  name: 'Uraume',
+  kana: '裏梅',
+  types: ['Cursed', 'Technique'],
+  color: '#89c2d9',
+  stats: { hp: 228, atk: 124, def: 118, spd: 106 },
+  moves: [
+    { name: 'Icefall', type: 'Technique', power: 85, acc: 100, pp: 15, effect: { stat: 'spd', stages: -1, target: 'foe', chance: 0.4 } },
+    { name: 'Frost Calm', type: 'Cursed', power: 70, acc: 100, pp: 20, effect: { status: 'bound', chance: 0.4 } },
+    { name: 'Ice Formation: Kamino', type: 'Technique', power: 120, acc: 80, pp: 6 },
+    { name: 'Reverse Cursed Technique', type: 'Cursed', category: 'status', acc: 100, pp: 6, effect: { heal: 0.4 } },
+  ],
+  domain: { name: 'Frozen Shrine', type: 'Domain', power: 128, pp: 1, effect: { stat: 'spd', stages: -1, target: 'foe', chance: 1 }, flavor: 'The air freezes mid-breath. Uraume is only preparing a meal.' },
+}
+
+const dagon = {
+  key: 'dagon',
+  name: 'Dagon',
+  kana: 'ダゴン',
+  types: ['Spirit', 'Technique'],
+  color: '#0096c7',
+  stats: { hp: 252, atk: 122, def: 120, spd: 90 },
+  moves: [
+    { name: 'Death Swarm', type: 'Spirit', power: 80, acc: 100, pp: 15 },
+    { name: 'Shikigami Tide', type: 'Technique', power: 70, acc: 100, pp: 20, effect: { stat: 'spd', stages: -1, target: 'foe', chance: 0.4 } },
+    { name: 'Undertow', type: 'Technique', power: 105, acc: 85, pp: 8, effect: { status: 'bound', chance: 0.25 } },
+    { name: 'Tidepool', type: 'Spirit', category: 'status', acc: 100, pp: 8, effect: { heal: 0.35, stat: 'def', stages: 1, target: 'self', chance: 1 } },
+  ],
+  domain: { name: 'Horizon of the Captive Whale', type: 'Domain', power: 132, pp: 1, effect: { drain: 0.25 }, flavor: 'A shoreline with no way off it, and the tide is already at your knees.' },
+}
+
 const sukuna = {
   key: 'sukuna',
   name: 'Ryomen Sukuna',
@@ -281,15 +435,48 @@ export const STAGES = [
     boost: 0.08,
   },
   {
-    title: 'Stage 4 — Sealed Gojo',
+    title: 'Stage 4 — Shibuya, Sublevel 5',
+    blurb: 'A sorcerer killer with no cursed energy, and a brother with too much of it.',
+    team: [toji, choso],
+    boost: 0.09,
+  },
+  {
+    title: 'Stage 5 — Sealed Gojo',
     blurb: 'With the strongest sealed, Geto and Mahito close in.',
     team: [mahito, geto],
     boost: 0.10,
   },
   {
-    title: 'Stage 5 — The King of Curses',
-    blurb: 'Sukuna has taken the vessel. There is no plan for this.',
-    team: [sukuna],
+    title: 'Stage 6 — Flooded Concourse',
+    blurb: 'A disaster curse opens its domain over the platform. Uraume freezes the exits.',
+    team: [dagon, uraume],
     boost: 0.11,
   },
+  {
+    title: 'Stage 7 — The King of Curses',
+    blurb: 'Sukuna has taken the vessel. There is no plan for this.',
+    team: [sukuna],
+    boost: 0.12,
+  },
 ]
+
+/* ---------------- versus pool ----------------
+ * Single-player only ever fights the curse side, but versus lets either player
+ * field them, so the enemy definitions are exported too. Anything without a
+ * `domain` simply never gets the Domain Expansion button. */
+
+export const ENEMIES = [
+  grade3,
+  fingerBearer,
+  jogo,
+  hanami,
+  dagon,
+  toji,
+  choso,
+  mahito,
+  geto,
+  uraume,
+  sukuna,
+]
+
+export const VERSUS_POOL = [...ROSTER, ...ENEMIES]
