@@ -73,6 +73,18 @@
   gap: 16px;
 }
 
+.select-section + .select-section {
+  margin-top: 28px;
+}
+
+.select-section-label {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
 .select-card {
   position: relative;
   text-align: left;
@@ -132,6 +144,10 @@
   margin-top: 12px;
   font-size: 12px;
   color: var(--accent);
+}
+
+.select-domain.no-domain {
+  color: var(--muted);
 }
 
 .select-check {

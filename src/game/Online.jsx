@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ROSTER } from './data'
+import { VERSUS_POOL } from './data'
 import { createBattle, createFighter, resolveTurn } from './engine'
 import { createConnection, makeRoomCode, normalizeCode } from '../net/connection'
 import BattleView from './BattleView'
@@ -9,11 +9,11 @@ import './game.css'
 /* Versus play uses a neutral arena instead of the gauntlet's scripted stages. */
 const ARENA = { title: 'Versus — Jujutsu High training ground', blurb: 'Cursed energy fills the arena.' }
 
-/* Both players get the whole roster, Gojo included, so neither side is gated by
- * single-player progress. */
-const ALL_UNLOCKED = ROSTER.filter((r) => r.locked).map((r) => r.key)
+/* Versus opens everything: Gojo (otherwise gauntlet-locked) plus the curse side,
+ * which single-player only ever fights. Nothing here is gated by progress. */
+const ALL_UNLOCKED = VERSUS_POOL.filter((r) => r.locked).map((r) => r.key)
 
-const buildTeam = (keys) => keys.map((k) => createFighter(ROSTER.find((r) => r.key === k)))
+const buildTeam = (keys) => keys.map((k) => createFighter(VERSUS_POOL.find((r) => r.key === k)))
 
 export default function Online() {
   const [step, setStep] = useState('menu')
@@ -262,6 +262,9 @@ export default function Online() {
         )}
         <TeamSelect
           unlocked={ALL_UNLOCKED}
+          pool={VERSUS_POOL}
+          hint="Pick any 3 — the whole registry is fair game in versus, curses and curse users included. Types beat each other in a wheel: Physical → Technique → Domain → Cursed → Spirit → Physical."
+          cta={role === 'host' ? 'Open the room' : 'Join the match'}
           onStart={role === 'host' ? startAsHost : startAsGuest}
         />
       </>

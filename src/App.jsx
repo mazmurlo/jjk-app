@@ -2,6 +2,9 @@ import { useState } from 'react'
 import Registry from './Registry'
 import Game from './game/Game'
 import Online from './game/Online'
+import MusicToggle from './audio/MusicToggle'
+import { characters } from './characters'
+import { STAGES } from './game/data'
 import './App.css'
 
 const TABS = [
@@ -11,9 +14,9 @@ const TABS = [
 ]
 
 const SUBTITLES = {
-  battle: 'Five missions. Three sorcerers. One Domain Expansion each.',
-  online: 'Play a friend, browser to browser.',
-  registry: 'A sorcerer registry — 12 entries on file.',
+  battle: `${STAGES.length} missions. Three sorcerers. One Domain Expansion each.`,
+  online: 'Play a friend, browser to browser — curses included.',
+  registry: `A sorcerer registry — ${characters.length} entries on file.`,
 }
 
 export default function App() {
@@ -25,6 +28,7 @@ export default function App() {
         <p className="eyebrow">呪術廻戦</p>
         <h1>Jujutsu Kaisen</h1>
         <p className="subtitle">{SUBTITLES[tab]}</p>
+        <MusicToggle />
       </header>
 
       <nav className="tabs">

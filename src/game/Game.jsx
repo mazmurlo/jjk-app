@@ -94,7 +94,7 @@ export default function Game() {
         <p className="eyebrow">Gauntlet cleared</p>
         <h2>Sukuna falls.</h2>
         <p className="menu-hint">
-          Five missions, no retreat. The King of Curses is sealed again — for now.
+          {STAGES.length} missions, no retreat. The King of Curses is sealed again — for now.
         </p>
         {justUnlocked && (
           <p className="unlock-note">

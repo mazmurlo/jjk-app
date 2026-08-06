@@ -6,9 +6,9 @@
 
 A fan-made React app with three modes:
 
-- **Gauntlet** — single-player, five stages against the AI, ending with Sukuna.
+- **Gauntlet** — single-player, seven stages against the AI, ending with Sukuna.
 - **Versus** — play a friend online, browser to browser.
-- **Registry** — browsable character cards.
+- **Registry** — browsable character cards, 22 entries.
 
 ## Running locally
 
@@ -49,10 +49,36 @@ The relay is deliberately dumb: it pairs two sockets by room code and forwards
 bytes. It has no idea what a cursed technique is, stores nothing, and keeps no
 state once both players leave.
 
-Versus play differs from the gauntlet in two ways: the whole roster is available
-to both sides (including Gojo, who is otherwise unlocked by clearing the
-gauntlet), and when a sorcerer is knocked out the next one comes in
-automatically for both players.
+Versus play differs from the gauntlet in three ways: both sides can field
+*anyone* — the full sorcerer roster including Gojo (otherwise unlocked by
+clearing the gauntlet), plus the curses and curse users the gauntlet only ever
+throws at you; nothing is gated on single-player progress; and when a fighter is
+knocked out the next one comes in automatically for both players.
+
+Fighters without a Domain Expansion (Toji, the low-grade curses) simply have the
+domain button greyed out — they trade it for raw stats.
+
+## Music
+
+The header has a music toggle. It looks for `public/audio/judas.mp3` and loops it;
+that file is **not** in the repository — the recording is copyrighted, and
+`.gitignore` keeps anything you drop in `public/audio/` out of commits. Add your
+own copy and the toggle plays it:
+
+```bash
+cp ~/wherever/judas.mp3 public/audio/judas.mp3
+```
+
+Without that file the toggle plays the built-in 8-bit loop instead, so the button
+always does something. `src/audio/music.js` synthesizes it live through Web Audio,
+laid out like an NES sound chip — two pulse channels for lead and arpeggio, a
+triangle bass, a noise channel for drums — over a 24-bar arrangement
+(intro/verse/chorus/verse/chorus/breakdown) that loops seamlessly at ~44s. It is
+an original composition in the style of that era of dance-pop, not a
+transcription of anyone's song.
+
+Nothing starts on its own — browsers require a click first — and the on/off
+choice is remembered in `localStorage`.
 
 ## Deploying to GitHub Pages
 
@@ -70,7 +96,8 @@ Note that GitHub Pages requires a **public** repository on free accounts.
 
 | Path | Purpose |
 | --- | --- |
-| `src/game/data.js` | Type chart, roster, enemies, stage definitions |
+| `src/game/data.js` | Type chart, roster, enemies, stage definitions, versus pool |
+| `src/audio/music.js` | Background music — local track, with an 8-bit fallback |
 | `src/game/engine.js` | Pure battle logic — damage, turn order, effects, AI |
 | `src/game/BattleView.jsx` | Battle screen, drawn from either side's perspective |
 | `src/game/Battle.jsx` | Single-player wrapper |
