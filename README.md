@@ -80,6 +80,31 @@ transcription of anyone's song.
 Nothing starts on its own — browsers require a click first — and the on/off
 choice is remembered in `localStorage`.
 
+**Load a track** next to the toggle plays any audio file from your device. It
+stays in the browser as an object URL — no upload, nothing added to the repo —
+which is also how you get music on the deployed site, since `judas.mp3` only
+exists on your machine.
+
+### Shared music in versus
+
+Toggling music during a versus match starts or stops your opponent's too. Only
+two things cross the connection — a flag and the current step of the arrangement:
+
+```js
+{ t: 'music', on: true, step: 112 }
+```
+
+Because the chiptune is generated from a fixed 384-step arrangement, replaying it
+from the same step puts both browsers on the same bar, within network latency.
+`currentStep()` reports the step being *heard* rather than the sequencer's write
+head, which sits ~0.3s ahead of the audio; sending the write head would start the
+other player a beat early.
+
+No audio is ever transmitted. If you're playing your own file, your opponent is
+only told to start music — they hear whatever source their browser has, which
+keeps the recording on your machine where it belongs. Remote-applied changes are
+tagged `origin: 'remote'` so the two sides don't echo each other forever.
+
 ## Deploying to GitHub Pages
 
 `.github/workflows/deploy.yml` builds and publishes on every push to `main`.

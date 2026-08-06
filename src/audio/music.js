@@ -21,20 +21,32 @@ const PREF_KEY = 'jjk.music'
 export const TRACK_LABEL = 'Judas — Lady Gaga'
 export const FALLBACK_LABEL = '8-bit Dance Floor (original)'
 
-let el = null // <audio> for the real track
-let source = 'none' // 'track' | 'chip' | 'none'
+let el = null // <audio> for a file source
+let source = 'none' // 'track' | 'custom' | 'chip' | 'none'
 let playing = false
+let customUrl = null // object URL for a file picked at runtime
+let customLabel = ''
+
+const labelFor = () => {
+  if (source === 'custom') return customLabel
+  if (source === 'track') return TRACK_LABEL
+  if (source === 'chip') return FALLBACK_LABEL
+  return 'Music off'
+}
 
 const listeners = new Set()
-const snapshot = () => ({ playing, source })
+const snapshot = () => ({ playing, source, label: labelFor(), step: currentStep() })
 
-function notify() {
-  for (const fn of listeners) fn(snapshot())
+/** `origin` lets versus play forward local toggles without echoing remote ones. */
+function notify(origin = 'local') {
+  for (const fn of listeners) fn({ ...snapshot(), origin })
 }
+
+export const getState = () => snapshot()
 
 export function subscribe(fn) {
   listeners.add(fn)
-  fn(snapshot())
+  fn({ ...snapshot(), origin: 'init' })
   return () => listeners.delete(fn)
 }
 
@@ -66,19 +78,50 @@ async function trackExists() {
   }
 }
 
-async function startTrack() {
-  if (!(await trackExists())) return false
+function fileElement(src) {
   if (!el) {
-    el = new Audio(TRACK_URL)
+    el = new Audio()
     el.loop = true
     el.volume = 0.5
   }
+  if (el.src !== src) el.src = src
+  return el
+}
+
+async function playFile(src) {
   try {
-    await el.play()
+    await fileElement(src).play()
     return true
   } catch {
     return false
   }
+}
+
+const startTrack = async () => (await trackExists()) && playFile(TRACK_URL)
+
+/**
+ * Play an audio file the user picked. It never leaves the browser — no upload,
+ * and nothing is sent to the other player in versus (see `applyRemote`).
+ */
+export async function loadFile(file) {
+  if (playing) {
+    if (source === 'chip') stopChiptune()
+    else el?.pause()
+    playing = false
+  }
+  if (customUrl) URL.revokeObjectURL(customUrl)
+  customUrl = URL.createObjectURL(file)
+  customLabel = file.name.replace(/\.[^.]+$/, '')
+
+  if (!(await playFile(customUrl))) {
+    notify()
+    return false
+  }
+  source = 'custom'
+  playing = true
+  savePref(true)
+  notify()
+  return true
 }
 
 /* ---------------- chiptune fallback ----------------
@@ -153,8 +196,10 @@ let master = null
 let noise = null
 const waves = new Map()
 let timer = null
-let step = 0
+let step = 0 // next step to schedule — runs ahead of what you hear
 let nextTime = 0
+let anchorStep = 0 // step/time the current run started from, for reading the
+let anchorTime = 0 // audible position rather than the scheduler's write head
 
 /** Band-limited pulse wave of a given duty cycle — the chip's square channels. */
 function pulseWave(duty) {
@@ -262,7 +307,18 @@ function schedule() {
   }
 }
 
-async function startChiptune() {
+/**
+ * The step currently being *heard*. The sequencer schedules ~0.3s ahead, so its
+ * counter is not the playback position — deriving it from the audio clock is
+ * what lets a peer start on the same beat instead of a beat early.
+ */
+export function currentStep() {
+  if (source !== 'chip' || !ctx) return 0
+  const elapsed = Math.max(0, ctx.currentTime - anchorTime)
+  return (anchorStep + Math.floor(elapsed / STEP)) % TOTAL_STEPS
+}
+
+async function startChiptune(atStep = 0) {
   if (!ctx) {
     ctx = new (window.AudioContext || window.webkitAudioContext)()
     master = ctx.createGain()
@@ -274,8 +330,11 @@ async function startChiptune() {
   }
   await ctx.resume()
   if (ctx.state !== 'running') return false
-  step = 0
+  // Starting mid-arrangement is how versus play lines both sides up.
+  step = ((atStep % TOTAL_STEPS) + TOTAL_STEPS) % TOTAL_STEPS
   nextTime = ctx.currentTime + 0.05
+  anchorStep = step
+  anchorTime = nextTime
   schedule()
   timer = setInterval(schedule, 60)
   return true
@@ -289,28 +348,44 @@ function stopChiptune() {
 
 /* ---------------- public controls ---------------- */
 
-export async function start() {
+export async function start({ atStep = 0, origin = 'local' } = {}) {
   if (playing) return true
-  if (await startTrack()) source = 'track'
-  else if (await startChiptune()) source = 'chip'
+  if (customUrl && (await playFile(customUrl))) source = 'custom'
+  else if (await startTrack()) source = 'track'
+  else if (await startChiptune(atStep)) source = 'chip'
   else return false
 
   playing = true
   savePref(true)
-  notify()
+  notify(origin)
   return true
 }
 
-export function stop() {
+export function stop({ origin = 'local' } = {}) {
   if (!playing) return
-  if (source === 'track') el?.pause()
-  else stopChiptune()
+  if (source === 'chip') stopChiptune()
+  else el?.pause()
   playing = false
   savePref(false)
-  notify()
+  notify(origin)
 }
 
 export const toggle = () => (playing ? (stop(), false) : start())
+
+/**
+ * Apply the other player's music state in a versus match.
+ *
+ * Only the on/off flag and the arrangement position cross the wire — never
+ * audio. The chiptune is generated from a fixed arrangement, so replaying it
+ * from the same step puts both sides in the same part of the loop (within
+ * network latency). A player using their own audio file keeps hearing that file;
+ * their opponent hears whatever source their own browser has.
+ */
+export function applyRemote({ on, step: atStep = 0 }) {
+  if (on) return start({ atStep, origin: 'remote' })
+  stop({ origin: 'remote' })
+  return Promise.resolve(false)
+}
 
 /** Resume on the first click of the session if music was on last time. */
 export function armAutoResume() {

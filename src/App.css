@@ -35,8 +35,30 @@
 
 /* ---------- music toggle ---------- */
 
-.music-toggle {
+.music-row {
   margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.music-load {
+  font-size: 12px;
+  color: var(--muted);
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 1px;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.music-load:hover {
+  color: var(--text-h);
+  border-bottom-color: #4cc9f0;
+}
+
+.music-toggle {
   display: inline-flex;
   align-items: center;
   gap: 9px;
