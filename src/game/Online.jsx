@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { VERSUS_POOL } from './data'
 import { createBattle, createFighter, resolveTurn } from './engine'
 import { createConnection, makeRoomCode, normalizeCode } from '../net/connection'
+import { applyRemote as applyRemoteMusic, getState as musicState, subscribe as subscribeMusic } from '../audio/music'
 import BattleView from './BattleView'
 import TeamSelect from './TeamSelect'
 import './game.css'
@@ -47,6 +48,20 @@ export default function Online() {
   const perspective = role === 'host' ? 'player' : 'enemy'
 
   useEffect(() => () => connRef.current?.destroy(), [])
+
+  /* ---------- shared music ----------
+   * Toggling music locally tells the opponent to start or stop theirs at the
+   * same point in the arrangement. Only the flag and the step travel; no audio
+   * is ever sent. Remote-applied changes come back tagged 'remote', which keeps
+   * the two sides from echoing each other forever. */
+
+  useEffect(
+    () =>
+      subscribeMusic((s) => {
+        if (s.origin === 'local') connRef.current?.send({ t: 'music', on: s.playing, step: s.step })
+      }),
+    [],
+  )
 
   /* ---------- frame playback (identical on both sides) ---------- */
 
@@ -103,6 +118,8 @@ export default function Online() {
       } else if (msg.t === 'frames') {
         setSubmitted(false)
         setQueue(msg.frames)
+      } else if (msg.t === 'music') {
+        applyRemoteMusic(msg)
       } else if (msg.t === 'rematch') {
         setNames(msg.names)
         setBattle(msg.state)
@@ -133,6 +150,11 @@ export default function Online() {
         setStatus(s)
         if (s === 'connected' && nextRole === 'guest') {
           connRef.current?.send({ t: 'hello', keys, name: myName })
+        }
+        // Music already running when the room fills? Bring them in on it.
+        if (s === 'connected') {
+          const m = musicState()
+          if (m.playing) connRef.current?.send({ t: 'music', on: true, step: m.step })
         }
       },
       onData: (msg) => handlerRef.current(msg),
